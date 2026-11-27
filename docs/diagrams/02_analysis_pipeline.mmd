@@ -1,0 +1,39 @@
+flowchart LR
+    subgraph Input[Input]
+        E[Email subject/body/sender/URLs]
+        U[Single URL]
+    end
+
+    subgraph Stage1[Stage 1 — Input normalisation]
+        IA[InputAgent: truncate, extract URLs, SHA-256 hash, summary]
+    end
+
+    subgraph Stage2[Stage 2 — Domain analysis]
+        UA[URLAnalysisAgent: per-URL model + rules]
+        EM[EmailAnalysisAgent: TF-IDF model + rules]
+        GS[DomainIntelAgent: NetworkX graph lookup]
+    end
+
+    subgraph Stage3[Stage 3 — Optional LLM]
+        SA[SemanticAgent: strict-JSON semantic pass]
+    end
+
+    subgraph Stage4[Stage 4 — Aggregation + output]
+        RA[RiskAggregationAgent: weighted mean + corroboration bonus]
+        EX[ExplanationAgent]
+        RP[ResponseAgent]
+    end
+
+    E --> IA
+    U --> IA
+    IA --> UA
+    IA --> EM
+    UA --> GS
+    EM --> GS
+    GS --> SA
+    SA --> RA
+    UA --> RA
+    EM --> RA
+    RA --> EX
+    EX --> RP
+    RP --> Out[(AnalysisResponse)]

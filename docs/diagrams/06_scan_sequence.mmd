@@ -1,0 +1,26 @@
+sequenceDiagram
+    participant U as User
+    participant F as Frontend
+    participant A as API
+    participant O as Orchestrator
+    participant M as ModelRegistry
+    participant R as RiskEngine
+    participant DB as SQLite
+
+    U->>F: submit email / URL
+    F->>A: POST /analyze/{email,url}
+    A->>O: analyze()
+    O->>O: InputAgent (extract URLs, hash)
+    O->>O: URL / Email agents
+    O->>M: predict_email / predict_url
+    M-->>O: probability + confidence
+    O->>O: DomainIntelAgent (graph)
+    O->>O: SemanticAgent (optional LLM)
+    O->>R: aggregate(components)
+    R-->>O: risk score + breakdown
+    O->>O: Explanation + Response agents
+    O->>DB: INSERT scan + indicators + components
+    DB-->>O: scan_id
+    O-->>A: AnalysisResponse
+    A-->>F: JSON
+    F-->>U: result panel

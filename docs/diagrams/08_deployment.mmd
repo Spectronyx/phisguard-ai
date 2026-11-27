@@ -1,0 +1,22 @@
+flowchart TB
+    subgraph Dev[Developer machine]
+        B[Backend: uvicorn :8000]
+        F[Frontend dev: Vite :5173 → /api proxy]
+        DB[(phishguard.db)]
+        ART[artifacts/ — joblib models]
+    end
+
+    subgraph Prod[Production demo — single process]
+        P[FastAPI app: API + SPA (frontend/dist)]
+        DB2[(phishguard.db)]
+        ART2[artifacts/]
+    end
+
+    Dev --> |npm run build → dist| Prod
+    B --> DB
+    B --> ART
+    P --> DB2
+    P --> ART2
+
+    style Dev fill:#e3f2fd
+    style Prod fill:#e8f5e9

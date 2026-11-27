@@ -1,0 +1,34 @@
+flowchart TB
+    subgraph User[User / Analyst]
+        U1[Submit email or URL]
+    end
+
+    subgraph Frontend[React SPA — frontend/]
+        F1[Dashboard / Email Scanner / URL Scanner]
+        F2[API client — /api/v1/*]
+        U1 --> F1
+        F1 --> F2
+    end
+
+    subgraph Backend[FastAPI backend — backend/app/]
+        API[API routers]
+        API --> ORCH[AnalysisOrchestrator]
+        ORCH --> IA[InputAgent]
+        IA --> UA[URLAnalysisAgent]
+        IA --> EA[EmailAnalysisAgent]
+        UA --> US[url_service]
+        EA --> ES[email_service]
+        UA --> GS[graph_service]
+        EA --> GS
+        GS --> LLM[semantic_service — optional LLM]
+        ORCH --> RA[risk_engine]
+        ORCH --> DB[(SQLite — scan history)]
+        US --> REG[ModelRegistry]
+        ES --> REG
+        GS --> REG
+        REG --> ART[backend/artifacts/*.joblib, *.pkl]
+    end
+
+    F2 --> API
+    LLM -.->|only if LLM_ENABLED + key| Provider[(OpenAI-compatible provider)]
+    style Provider fill:#f9f,stroke:#333,stroke-dasharray: 5 5

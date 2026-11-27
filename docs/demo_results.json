@@ -1,0 +1,643 @@
+{
+  "generated_at": "2026-11-18T17:00:13.827148+00:00",
+  "base_url": "http://127.0.0.1:8000",
+  "note": "Every record below was produced by the real PhishGuard API on the stated date. No numbers are hand-written. Scores may differ slightly if models are retrained.",
+  "scenarios": [
+    {
+      "name": "legit_email",
+      "note": "Legitimate internal email; should stay low risk.",
+      "kind": "email",
+      "scan_id": 1,
+      "input_summary": "CS473 project review schedule",
+      "classification": "suspicious",
+      "risk_level": "suspicious",
+      "risk_score": 39,
+      "model_confidence": 0.6047,
+      "components": [
+        {
+          "name": "email_model",
+          "status": "ok",
+          "score": 39.53,
+          "confidence": 0.6047,
+          "weight": 0.5455,
+          "contribution": 21.56
+        },
+        {
+          "name": "email_rules",
+          "status": "ok",
+          "score": 0.0,
+          "confidence": null,
+          "weight": 0.2727,
+          "contribution": 0.0
+        },
+        {
+          "name": "url_model",
+          "status": "skipped",
+          "score": null,
+          "confidence": null,
+          "weight": null,
+          "contribution": null
+        },
+        {
+          "name": "url_rules",
+          "status": "skipped",
+          "score": null,
+          "confidence": null,
+          "weight": null,
+          "contribution": null
+        },
+        {
+          "name": "graph",
+          "status": "no_data",
+          "score": null,
+          "confidence": null,
+          "weight": null,
+          "contribution": null
+        },
+        {
+          "name": "llm",
+          "status": "ok",
+          "score": 97.24,
+          "confidence": 0.9724,
+          "weight": 0.1818,
+          "contribution": 17.68
+        }
+      ],
+      "indicators": [
+        "Local LLM flagged phishing intent"
+      ],
+      "recommendation": "Treat this as untrustworthy until independently verified through an official channel. Report the message to your organisation's security or IT team and then delete it."
+    },
+    {
+      "name": "suspicious_invoice_email",
+      "note": "Ordinary invoice reminder; model is uncertain, so it lands in the suspicious band.",
+      "kind": "email",
+      "scan_id": 2,
+      "input_summary": "Your invoice is ready",
+      "classification": "phishing",
+      "risk_level": "high",
+      "risk_score": 62,
+      "model_confidence": 0.7394,
+      "components": [
+        {
+          "name": "email_model",
+          "status": "ok",
+          "score": 73.94,
+          "confidence": 0.7394,
+          "weight": 0.5455,
+          "contribution": 40.33
+        },
+        {
+          "name": "email_rules",
+          "status": "ok",
+          "score": 0.0,
+          "confidence": null,
+          "weight": 0.2727,
+          "contribution": 0.0
+        },
+        {
+          "name": "url_model",
+          "status": "skipped",
+          "score": null,
+          "confidence": null,
+          "weight": null,
+          "contribution": null
+        },
+        {
+          "name": "url_rules",
+          "status": "skipped",
+          "score": null,
+          "confidence": null,
+          "weight": null,
+          "contribution": null
+        },
+        {
+          "name": "graph",
+          "status": "no_data",
+          "score": null,
+          "confidence": null,
+          "weight": null,
+          "contribution": null
+        },
+        {
+          "name": "llm",
+          "status": "ok",
+          "score": 99.91,
+          "confidence": 0.9991,
+          "weight": 0.1818,
+          "contribution": 18.17
+        }
+      ],
+      "indicators": [
+        "Local LLM flagged phishing intent"
+      ],
+      "recommendation": "Do not click any links, reply, or provide credentials or payment details. Report the message to your organisation's security or IT team and then delete it."
+    },
+    {
+      "name": "suspicious_delivery_email",
+      "note": "Delivery wording triggers the email model but not the rules.",
+      "kind": "email",
+      "scan_id": 3,
+      "input_summary": "Package delivery update",
+      "classification": "phishing",
+      "risk_level": "high",
+      "risk_score": 66,
+      "model_confidence": 0.8991,
+      "components": [
+        {
+          "name": "email_model",
+          "status": "ok",
+          "score": 89.91,
+          "confidence": 0.8991,
+          "weight": 0.5,
+          "contribution": 44.95
+        },
+        {
+          "name": "email_rules",
+          "status": "ok",
+          "score": 0.0,
+          "confidence": null,
+          "weight": 0.25,
+          "contribution": 0.0
+        },
+        {
+          "name": "url_model",
+          "status": "skipped",
+          "score": null,
+          "confidence": null,
+          "weight": null,
+          "contribution": null
+        },
+        {
+          "name": "url_rules",
+          "status": "skipped",
+          "score": null,
+          "confidence": null,
+          "weight": null,
+          "contribution": null
+        },
+        {
+          "name": "graph",
+          "status": "ok",
+          "score": 8.0,
+          "confidence": null,
+          "weight": 0.0833,
+          "contribution": 0.67
+        },
+        {
+          "name": "llm",
+          "status": "ok",
+          "score": 99.9,
+          "confidence": 0.999,
+          "weight": 0.1667,
+          "contribution": 16.65
+        }
+      ],
+      "indicators": [
+        "Local LLM flagged phishing intent"
+      ],
+      "recommendation": "Do not click any links, reply, or provide credentials or payment details. Report the message to your organisation's security or IT team and then delete it."
+    },
+    {
+      "name": "phish_email_sbi",
+      "note": "Credential phishing with brand impersonation, OTP request and a lookalike link.",
+      "kind": "email",
+      "scan_id": 4,
+      "input_summary": "URGENT: Your SBI account will be suspended",
+      "classification": "phishing",
+      "risk_level": "critical",
+      "risk_score": 98,
+      "model_confidence": 0.9997,
+      "components": [
+        {
+          "name": "email_model",
+          "status": "ok",
+          "score": 93.79,
+          "confidence": 0.9379,
+          "weight": 0.3158,
+          "contribution": 29.62
+        },
+        {
+          "name": "email_rules",
+          "status": "ok",
+          "score": 80.0,
+          "confidence": null,
+          "weight": 0.1579,
+          "contribution": 12.63
+        },
+        {
+          "name": "url_model",
+          "status": "ok",
+          "score": 99.97,
+          "confidence": 0.9997,
+          "weight": 0.3158,
+          "contribution": 31.57
+        },
+        {
+          "name": "url_rules",
+          "status": "ok",
+          "score": 56.0,
+          "confidence": null,
+          "weight": 0.1053,
+          "contribution": 5.89
+        },
+        {
+          "name": "graph",
+          "status": "no_data",
+          "score": null,
+          "confidence": null,
+          "weight": null,
+          "contribution": null
+        },
+        {
+          "name": "llm",
+          "status": "ok",
+          "score": 99.93,
+          "confidence": 0.9993,
+          "weight": 0.1053,
+          "contribution": 10.52
+        }
+      ],
+      "indicators": [
+        "Brand impersonation",
+        "Credential harvesting language",
+        "Account threat",
+        "Local LLM flagged phishing intent",
+        "Suspicious embedded link",
+        "Credential-related keywords",
+        "High-abuse TLD",
+        "Urgency pressure",
+        "Generic greeting",
+        "Hyphenated hostname",
+        "No HTTPS"
+      ],
+      "recommendation": "Do not click any links, reply, or provide credentials or payment details. If you already entered credentials, change the password immediately and enable multi-factor authentication. Navigate to the organisation's website manually or use a saved bookmark instead of the supplied link. Pause: urgency and account threats are pressure tactics. Confirm the claim through official support. Report the message to your organisation's security or IT team and then delete it."
+    },
+    {
+      "name": "phish_email_invoice",
+      "note": "Invoice lure with attachment bait and a lookalike sender domain.",
+      "kind": "email",
+      "scan_id": 5,
+      "input_summary": "Invoice INV-88421 payment overdue",
+      "classification": "phishing",
+      "risk_level": "critical",
+      "risk_score": 100,
+      "model_confidence": 0.9971,
+      "components": [
+        {
+          "name": "email_model",
+          "status": "ok",
+          "score": 93.72,
+          "confidence": 0.9372,
+          "weight": 0.3158,
+          "contribution": 29.6
+        },
+        {
+          "name": "email_rules",
+          "status": "ok",
+          "score": 100.0,
+          "confidence": null,
+          "weight": 0.1579,
+          "contribution": 15.79
+        },
+        {
+          "name": "url_model",
+          "status": "ok",
+          "score": 99.71,
+          "confidence": 0.9971,
+          "weight": 0.3158,
+          "contribution": 31.49
+        },
+        {
+          "name": "url_rules",
+          "status": "ok",
+          "score": 42.0,
+          "confidence": null,
+          "weight": 0.1053,
+          "contribution": 4.42
+        },
+        {
+          "name": "graph",
+          "status": "no_data",
+          "score": null,
+          "confidence": null,
+          "weight": null,
+          "contribution": null
+        },
+        {
+          "name": "llm",
+          "status": "ok",
+          "score": 99.92,
+          "confidence": 0.9992,
+          "weight": 0.1053,
+          "contribution": 10.52
+        }
+      ],
+      "indicators": [
+        "Brand impersonation",
+        "Sender brand mismatch",
+        "Unexpected attachment",
+        "Local LLM flagged phishing intent",
+        "Suspicious embedded link",
+        "Unexpected financial request",
+        "High-abuse TLD",
+        "Secrecy request",
+        "Urgency pressure",
+        "Generic greeting",
+        "No HTTPS"
+      ],
+      "recommendation": "Do not click any links, reply, or provide credentials or payment details. Verify payment requests by contacting the organisation using a number from its official website, not the message. Do not open unexpected attachments; submit them to your security team for scanning. Navigate to the organisation's website manually or use a saved bookmark instead of the supplied link. Pause: urgency and account threats are pressure tactics. Confirm the claim through official support."
+    },
+    {
+      "name": "benign_url_google",
+      "note": "Popular bare domain; popularity calibration applies.",
+      "kind": "url",
+      "scan_id": 6,
+      "input_summary": "https://www.google.com/",
+      "classification": "safe",
+      "risk_level": "low",
+      "risk_score": 3,
+      "model_confidence": 0.9715,
+      "components": [
+        {
+          "name": "url_model",
+          "status": "ok",
+          "score": 2.85,
+          "confidence": 0.9715,
+          "weight": 0.6667,
+          "contribution": 1.9
+        },
+        {
+          "name": "url_rules",
+          "status": "ok",
+          "score": 0.0,
+          "confidence": null,
+          "weight": 0.2222,
+          "contribution": 0.0
+        },
+        {
+          "name": "graph",
+          "status": "ok",
+          "score": 8.0,
+          "confidence": null,
+          "weight": 0.1111,
+          "contribution": 0.89
+        }
+      ],
+      "indicators": [],
+      "recommendation": "No strong phishing signal was found, but stay cautious with unexpected requests. Report the message to your organisation's security or IT team and then delete it."
+    },
+    {
+      "name": "benign_url_github",
+      "note": "Deep link on a popular domain; path is not treated as malicious by itself.",
+      "kind": "url",
+      "scan_id": 7,
+      "input_summary": "https://github.com/microsoft/vscode",
+      "classification": "safe",
+      "risk_level": "low",
+      "risk_score": 18,
+      "model_confidence": 0.7415,
+      "components": [
+        {
+          "name": "url_model",
+          "status": "ok",
+          "score": 25.85,
+          "confidence": 0.7415,
+          "weight": 0.6667,
+          "contribution": 17.23
+        },
+        {
+          "name": "url_rules",
+          "status": "ok",
+          "score": 0.0,
+          "confidence": null,
+          "weight": 0.2222,
+          "contribution": 0.0
+        },
+        {
+          "name": "graph",
+          "status": "ok",
+          "score": 8.0,
+          "confidence": null,
+          "weight": 0.1111,
+          "contribution": 0.89
+        }
+      ],
+      "indicators": [],
+      "recommendation": "No strong phishing signal was found, but stay cautious with unexpected requests. Report the message to your organisation's security or IT team and then delete it."
+    },
+    {
+      "name": "benign_url_wikipedia",
+      "note": "Reference page about phishing.",
+      "kind": "url",
+      "scan_id": 8,
+      "input_summary": "https://en.wikipedia.org/wiki/Phishing",
+      "classification": "safe",
+      "risk_level": "low",
+      "risk_score": 2,
+      "model_confidence": 0.9774,
+      "components": [
+        {
+          "name": "url_model",
+          "status": "ok",
+          "score": 2.26,
+          "confidence": 0.9774,
+          "weight": 0.6667,
+          "contribution": 1.51
+        },
+        {
+          "name": "url_rules",
+          "status": "ok",
+          "score": 0.0,
+          "confidence": null,
+          "weight": 0.2222,
+          "contribution": 0.0
+        },
+        {
+          "name": "graph",
+          "status": "ok",
+          "score": 8.0,
+          "confidence": null,
+          "weight": 0.1111,
+          "contribution": 0.89
+        }
+      ],
+      "indicators": [],
+      "recommendation": "No strong phishing signal was found, but stay cautious with unexpected requests. Report the message to your organisation's security or IT team and then delete it."
+    },
+    {
+      "name": "benign_url_python_docs",
+      "note": "Documentation link with a long path.",
+      "kind": "url",
+      "scan_id": 9,
+      "input_summary": "https://docs.python.org/3/library/urllib.parse.html",
+      "classification": "safe",
+      "risk_level": "low",
+      "risk_score": 9,
+      "model_confidence": 0.8853,
+      "components": [
+        {
+          "name": "url_model",
+          "status": "ok",
+          "score": 11.47,
+          "confidence": 0.8853,
+          "weight": 0.6667,
+          "contribution": 7.65
+        },
+        {
+          "name": "url_rules",
+          "status": "ok",
+          "score": 4.0,
+          "confidence": null,
+          "weight": 0.2222,
+          "contribution": 0.89
+        },
+        {
+          "name": "graph",
+          "status": "ok",
+          "score": 8.0,
+          "confidence": null,
+          "weight": 0.1111,
+          "contribution": 0.89
+        }
+      ],
+      "indicators": [
+        "Many dots"
+      ],
+      "recommendation": "No strong phishing signal was found, but stay cautious with unexpected requests. Report the message to your organisation's security or IT team and then delete it."
+    },
+    {
+      "name": "phish_url_oortech",
+      "note": "Brand token in a subdomain, hyphenated host and a long encoded query.",
+      "kind": "url",
+      "scan_id": 10,
+      "input_summary": "https://adobe-reader-283901.standard.us-east-1.oortech.com/documents.org",
+      "classification": "phishing",
+      "risk_level": "critical",
+      "risk_score": 83,
+      "model_confidence": 0.9746,
+      "components": [
+        {
+          "name": "url_model",
+          "status": "ok",
+          "score": 97.46,
+          "confidence": 0.9746,
+          "weight": 0.75,
+          "contribution": 73.09
+        },
+        {
+          "name": "url_rules",
+          "status": "ok",
+          "score": 40.0,
+          "confidence": null,
+          "weight": 0.25,
+          "contribution": 10.0
+        },
+        {
+          "name": "graph",
+          "status": "no_data",
+          "score": null,
+          "confidence": null,
+          "weight": null,
+          "contribution": null
+        }
+      ],
+      "indicators": [
+        "Brand impersonation",
+        "Hyphenated hostname",
+        "Long URL",
+        "Many dots"
+      ],
+      "recommendation": "Do not click any links, reply, or provide credentials or payment details. Navigate to the organisation's website manually or use a saved bookmark instead of the supplied link. Report the message to your organisation's security or IT team and then delete it."
+    },
+    {
+      "name": "phish_url_paypal",
+      "note": "Classic brand-lookalike domain with a credential keyword.",
+      "kind": "url",
+      "scan_id": 11,
+      "input_summary": "http://paypal-secure-login.xyz/verify-account",
+      "classification": "phishing",
+      "risk_level": "critical",
+      "risk_score": 89,
+      "model_confidence": 0.9977,
+      "components": [
+        {
+          "name": "url_model",
+          "status": "ok",
+          "score": 99.77,
+          "confidence": 0.9977,
+          "weight": 0.75,
+          "contribution": 74.83
+        },
+        {
+          "name": "url_rules",
+          "status": "ok",
+          "score": 56.0,
+          "confidence": null,
+          "weight": 0.25,
+          "contribution": 14.0
+        },
+        {
+          "name": "graph",
+          "status": "no_data",
+          "score": null,
+          "confidence": null,
+          "weight": null,
+          "contribution": null
+        }
+      ],
+      "indicators": [
+        "Brand impersonation",
+        "Credential-related keywords",
+        "High-abuse TLD",
+        "Hyphenated hostname",
+        "No HTTPS"
+      ],
+      "recommendation": "Do not click any links, reply, or provide credentials or payment details. If you already entered credentials, change the password immediately and enable multi-factor authentication. Navigate to the organisation's website manually or use a saved bookmark instead of the supplied link. Report the message to your organisation's security or IT team and then delete it."
+    },
+    {
+      "name": "phish_url_microsoft",
+      "note": "Brand lookalike on a high-abuse TLD.",
+      "kind": "url",
+      "scan_id": 12,
+      "input_summary": "http://microsoft-support-helpdesk.xyz",
+      "classification": "phishing",
+      "risk_level": "critical",
+      "risk_score": 86,
+      "model_confidence": 0.9995,
+      "components": [
+        {
+          "name": "url_model",
+          "status": "ok",
+          "score": 99.95,
+          "confidence": 0.9995,
+          "weight": 0.75,
+          "contribution": 74.96
+        },
+        {
+          "name": "url_rules",
+          "status": "ok",
+          "score": 46.0,
+          "confidence": null,
+          "weight": 0.25,
+          "contribution": 11.5
+        },
+        {
+          "name": "graph",
+          "status": "no_data",
+          "score": null,
+          "confidence": null,
+          "weight": null,
+          "contribution": null
+        }
+      ],
+      "indicators": [
+        "Brand impersonation",
+        "High-abuse TLD",
+        "Hyphenated hostname",
+        "No HTTPS"
+      ],
+      "recommendation": "Do not click any links, reply, or provide credentials or payment details. Navigate to the organisation's website manually or use a saved bookmark instead of the supplied link. Report the message to your organisation's security or IT team and then delete it."
+    }
+  ]
+}

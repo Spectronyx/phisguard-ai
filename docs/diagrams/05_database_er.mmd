@@ -1,0 +1,40 @@
+erDiagram
+    SCAN ||--o{ SCAN_INDICATOR : contains
+    SCAN ||--o{ ANALYSIS_COMPONENT : contains
+
+    SCAN {
+        int id PK
+        string scan_type
+        string input_summary
+        string input_hash
+        string classification
+        string risk_level
+        int risk_score
+        float model_confidence
+        text explanation
+        text recommendation
+        bool llm_used
+        json details
+        datetime created_at
+    }
+
+    SCAN_INDICATOR {
+        int id PK
+        int scan_id FK
+        string indicator_name
+        string severity
+        text description
+        string source
+    }
+
+    ANALYSIS_COMPONENT {
+        int id PK
+        int scan_id FK
+        string component_name
+        string component_status
+        float component_score
+        float component_confidence
+        float weight
+        float contribution
+        json component_output
+    }

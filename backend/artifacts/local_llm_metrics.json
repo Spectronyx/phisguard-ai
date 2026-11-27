@@ -1,0 +1,64 @@
+{
+  "generated_on": "2026-11-18T16:49:37.660737+00:00",
+  "base_model": "distilbert-base-uncased",
+  "fine_tuned": true,
+  "task": "binary email phishing text classification (not generative LLM)",
+  "disclosure": "A 66M-parameter DistilBERT encoder fine-tuned on the real phishing corpus. It outputs a phishing probability, not generated text, and is not pretrained from scratch.",
+  "dataset": {
+    "path": "backend/datasets/processed/email_dataset.csv",
+    "rows": 5973,
+    "label_distribution": {
+      "legitimate": 4104,
+      "phishing": 1869
+    },
+    "split": {
+      "train": 4181,
+      "validation": 896,
+      "test": 896
+    },
+    "seed": 42
+  },
+  "training": {
+    "device": "cuda",
+    "gpu_name": "NVIDIA GeForce RTX 3050 Laptop GPU",
+    "epochs": 3,
+    "batch_size": 8,
+    "gradient_accumulation_steps": 2,
+    "effective_batch_size": 16,
+    "learning_rate": 2e-05,
+    "max_length": 384,
+    "fp16": true,
+    "training_seconds": 249.37,
+    "torch_version": "2.9.1+cu128"
+  },
+  "validation": {
+    "metrics": {
+      "accuracy": 0.9989,
+      "precision": 1.0,
+      "recall": 0.9964,
+      "f1": 0.9982,
+      "roc_auc": 0.9997
+    },
+    "confusion_matrix": {
+      "true_negative": 615,
+      "false_positive": 0,
+      "false_negative": 1,
+      "true_positive": 280
+    }
+  },
+  "test": {
+    "metrics": {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "roc_auc": 1.0
+    },
+    "confusion_matrix": {
+      "true_negative": 616,
+      "false_positive": 0,
+      "false_negative": 0,
+      "true_positive": 280
+    }
+  }
+}

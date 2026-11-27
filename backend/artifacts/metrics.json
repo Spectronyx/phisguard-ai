@@ -1,0 +1,506 @@
+{
+  "generated_at": "2026-11-17T18:05:04.749764+00:00",
+  "training_seconds": 24.94,
+  "seed": 42,
+  "environment": {
+    "python": "3.11.15",
+    "scikit_learn": "1.9.1",
+    "pandas": "3.1.1",
+    "numpy": "2.4.6"
+  },
+  "dataset_metadata": {
+    "generated_on": "2026-11-17",
+    "seed": 42,
+    "email": {
+      "rows": 5983,
+      "label_distribution": {
+        "legitimate": 4108,
+        "phishing": 1875
+      },
+      "duplicates_removed": 200,
+      "sha256": "197ec9f68639179ffe35f10f15426ff654908283d037a5270d618fdaaf65d9e9",
+      "sources": [
+        {
+          "name": "Nazario Phishing Corpus 2019\u20132025",
+          "url": "https://monkey.org/~jose/phishing/",
+          "licence": "CC-BY-4.0",
+          "usage": "phishing email class"
+        },
+        {
+          "name": "SpamAssassin Public Corpus (easy_ham, easy_ham_2, hard_ham)",
+          "url": "https://spamassassin.apache.org/old/publiccorpus/",
+          "licence": "Apache SpamAssassin public corpus terms",
+          "usage": "legitimate email class"
+        }
+      ],
+      "notes": "Emails were parsed from mbox/tar archives, attachments were ignored, HTML was converted to text, quoted lines were removed, and bodies were truncated to 20,000 characters. Phishing messages were randomly capped to keep training tractable. The legitimate corpus is from 2003 while phishing messages span 2019\u20132025; this temporal mismatch can inflate measured performance and is disclosed as a limitation."
+    },
+    "url": {
+      "rows": 24000,
+      "label_distribution": {
+        "benign": 12000,
+        "malicious": 12000
+      },
+      "sha256": "62ef06e3d3c276c8e6f499850c0305ae4d4afbe1c9f450708999b079e4000ff7",
+      "sources": [
+        {
+          "name": "Malicious URLs Dataset (Siddhartha, Kaggle), derived from ISCX-URL-2016",
+          "url": "https://www.kaggle.com/datasets/sid321axn/malicious-urls-dataset",
+          "licence": "CC0 1.0 (Kaggle dataset metadata)",
+          "usage": "real benign URLs and real phishing URLs"
+        },
+        {
+          "name": "Phishing.Database active phishing links (Phishing-Database/Phishing.Database)",
+          "url": "https://github.com/Phishing-Database/Phishing.Database",
+          "licence": "CC0-1.0",
+          "usage": "additional recent real malicious URLs"
+        }
+      ],
+      "notes": "All URL samples are real URLs. The Kaggle dataset's benign and phishing categories were used (defacement and malware categories were excluded). Samples are deduplicated to one URL per hostname. Malicious URLs whose registrable domain also appeared in the full benign pool were excluded to avoid contradictory labels. Benign corpora are homepage-heavy; because path features are excluded from the URL ML model, this bias does not drive the model. No URLs were fetched or opened during dataset construction.",
+      "source_breakdown": {
+        "kaggle": {
+          "rows": 651184,
+          "label_distribution": {
+            "benign": 428101,
+            "defacement": 96457,
+            "phishing": 94106,
+            "malware": 32520
+          },
+          "licence": "CC0 1.0 (Kaggle dataset metadata)",
+          "unique_benign_hosts": 134064,
+          "unique_phishing_hosts": 55818
+        },
+        "phishing_database": {
+          "non_http": 2,
+          "benign_domain_conflict": 44335,
+          "unique_hosts": 410916,
+          "sampled": 12000
+        },
+        "benign_real_urls": 12000,
+        "malicious_kaggle": 6000,
+        "malicious_phishing_database": 6000,
+        "total_malicious": 12000,
+        "deduplication": "unique hostname per class; contradictory domains removed"
+      }
+    }
+  },
+  "email": {
+    "task": "email_phishing_detection",
+    "dataset": "Nazario phishing corpus (2019-2025) + SpamAssassin ham",
+    "dataset_rows": 5983,
+    "label_distribution": {
+      "legitimate": 4108,
+      "phishing": 1875
+    },
+    "split": {
+      "train": 4187,
+      "validation": 898,
+      "test": 898
+    },
+    "algorithm": "TF-IDF (1-2 grams) + Logistic Regression (C=1.0)",
+    "threshold": 0.5,
+    "validation": {
+      "C": 1.0,
+      "validation_f1": 0.9928,
+      "validation_precision": 1.0,
+      "validation_recall": 0.9858
+    },
+    "test": {
+      "accuracy": 0.9889,
+      "precision": 0.9963,
+      "recall": 0.968,
+      "f1": 0.9819,
+      "roc_auc": 0.9991,
+      "confusion_matrix": {
+        "labels": [
+          "legitimate",
+          "phishing"
+        ],
+        "matrix": [
+          [
+            616,
+            1
+          ],
+          [
+            9,
+            272
+          ]
+        ],
+        "true_negative": 616,
+        "false_positive": 1,
+        "false_negative": 9,
+        "true_positive": 272
+      },
+      "support": {
+        "legitimate": 617,
+        "phishing": 281
+      }
+    },
+    "threshold_analysis": [
+      {
+        "threshold": 0.3,
+        "precision": 0.9586,
+        "recall": 0.9893,
+        "f1": 0.9737
+      },
+      {
+        "threshold": 0.5,
+        "precision": 0.9963,
+        "recall": 0.968,
+        "f1": 0.9819
+      },
+      {
+        "threshold": 0.7,
+        "precision": 1.0,
+        "recall": 0.9181,
+        "f1": 0.9573
+      }
+    ],
+    "baseline_complement_nb": {
+      "accuracy": 0.99,
+      "precision": 0.9964,
+      "recall": 0.9715,
+      "f1": 0.9838,
+      "roc_auc": 0.9968,
+      "confusion_matrix": {
+        "labels": [
+          "legitimate",
+          "phishing"
+        ],
+        "matrix": [
+          [
+            616,
+            1
+          ],
+          [
+            8,
+            273
+          ]
+        ],
+        "true_negative": 616,
+        "false_positive": 1,
+        "false_negative": 8,
+        "true_positive": 273
+      },
+      "support": {
+        "legitimate": 617,
+        "phishing": 281
+      }
+    },
+    "tuning": [
+      {
+        "C": 0.5,
+        "validation_f1": 0.991,
+        "validation_precision": 1.0,
+        "validation_recall": 0.9822
+      },
+      {
+        "C": 1.0,
+        "validation_f1": 0.9928,
+        "validation_precision": 1.0,
+        "validation_recall": 0.9858
+      },
+      {
+        "C": 2.0,
+        "validation_f1": 0.9928,
+        "validation_precision": 1.0,
+        "validation_recall": 0.9858
+      },
+      {
+        "C": 4.0,
+        "validation_f1": 0.9928,
+        "validation_precision": 1.0,
+        "validation_recall": 0.9858
+      }
+    ],
+    "seed": 42
+  },
+  "url": {
+    "task": "url_phishing_detection",
+    "dataset": "Kaggle Malicious URLs (benign+phishing, derived from ISCX-URL-2016) + Phishing.Database active links",
+    "dataset_rows": 23838,
+    "label_distribution": {
+      "benign": 11874,
+      "malicious": 11964
+    },
+    "split": {
+      "train": 16686,
+      "validation": 3576,
+      "test": 3576
+    },
+    "selected_algorithm": "logistic_regression_host_char_c4",
+    "threshold": 0.5,
+    "validation": {
+      "algorithm": "logistic_regression_host_char_c4",
+      "validation_f1": 0.7396,
+      "validation_precision": 0.7702,
+      "validation_recall": 0.7114,
+      "fit_seconds": 2.09
+    },
+    "test": {
+      "accuracy": 0.7475,
+      "precision": 0.7652,
+      "recall": 0.717,
+      "f1": 0.7403,
+      "roc_auc": 0.8421,
+      "confusion_matrix": {
+        "labels": [
+          "benign",
+          "malicious"
+        ],
+        "matrix": [
+          [
+            1386,
+            395
+          ],
+          [
+            508,
+            1287
+          ]
+        ],
+        "true_negative": 1386,
+        "false_positive": 395,
+        "false_negative": 508,
+        "true_positive": 1287
+      },
+      "support": {
+        "benign": 1781,
+        "malicious": 1795
+      }
+    },
+    "test_with_popularity_calibration": {
+      "accuracy": 0.7475,
+      "precision": 0.7652,
+      "recall": 0.717,
+      "f1": 0.7403,
+      "roc_auc": 0.8418,
+      "confusion_matrix": {
+        "labels": [
+          "benign",
+          "malicious"
+        ],
+        "matrix": [
+          [
+            1386,
+            395
+          ],
+          [
+            508,
+            1287
+          ]
+        ],
+        "true_negative": 1386,
+        "false_positive": 395,
+        "false_negative": 508,
+        "true_positive": 1287
+      },
+      "support": {
+        "benign": 1781,
+        "malicious": 1795
+      },
+      "calibration_factor": 0.3,
+      "calibrated_rows": 7
+    },
+    "threshold_analysis": [
+      {
+        "threshold": 0.3,
+        "precision": 0.6609,
+        "recall": 0.8763,
+        "f1": 0.7535
+      },
+      {
+        "threshold": 0.5,
+        "precision": 0.7652,
+        "recall": 0.717,
+        "f1": 0.7403
+      },
+      {
+        "threshold": 0.7,
+        "precision": 0.8912,
+        "recall": 0.5565,
+        "f1": 0.6852
+      }
+    ],
+    "comparison": {
+      "random_forest_lexical": {
+        "accuracy": 0.7215,
+        "precision": 0.7429,
+        "recall": 0.6808,
+        "f1": 0.7105,
+        "roc_auc": 0.8025,
+        "confusion_matrix": {
+          "labels": [
+            "benign",
+            "malicious"
+          ],
+          "matrix": [
+            [
+              1358,
+              423
+            ],
+            [
+              573,
+              1222
+            ]
+          ],
+          "true_negative": 1358,
+          "false_positive": 423,
+          "false_negative": 573,
+          "true_positive": 1222
+        },
+        "support": {
+          "benign": 1781,
+          "malicious": 1795
+        }
+      },
+      "logistic_regression_host_char": {
+        "accuracy": 0.7522,
+        "precision": 0.78,
+        "recall": 0.7053,
+        "f1": 0.7408,
+        "roc_auc": 0.843,
+        "confusion_matrix": {
+          "labels": [
+            "benign",
+            "malicious"
+          ],
+          "matrix": [
+            [
+              1424,
+              357
+            ],
+            [
+              529,
+              1266
+            ]
+          ],
+          "true_negative": 1424,
+          "false_positive": 357,
+          "false_negative": 529,
+          "true_positive": 1266
+        },
+        "support": {
+          "benign": 1781,
+          "malicious": 1795
+        }
+      },
+      "logistic_regression_host_char_c4": {
+        "accuracy": 0.7475,
+        "precision": 0.7652,
+        "recall": 0.717,
+        "f1": 0.7403,
+        "roc_auc": 0.8421,
+        "confusion_matrix": {
+          "labels": [
+            "benign",
+            "malicious"
+          ],
+          "matrix": [
+            [
+              1386,
+              395
+            ],
+            [
+              508,
+              1287
+            ]
+          ],
+          "true_negative": 1386,
+          "false_positive": 395,
+          "false_negative": 508,
+          "true_positive": 1287
+        },
+        "support": {
+          "benign": 1781,
+          "malicious": 1795
+        }
+      }
+    },
+    "tuning": [
+      {
+        "algorithm": "random_forest_lexical",
+        "validation_f1": 0.7212,
+        "validation_precision": 0.7433,
+        "validation_recall": 0.7003,
+        "fit_seconds": 0.88
+      },
+      {
+        "algorithm": "logistic_regression_host_char",
+        "validation_f1": 0.735,
+        "validation_precision": 0.7804,
+        "validation_recall": 0.6947,
+        "fit_seconds": 1.2
+      },
+      {
+        "algorithm": "logistic_regression_host_char_c4",
+        "validation_f1": 0.7396,
+        "validation_precision": 0.7702,
+        "validation_recall": 0.7114,
+        "fit_seconds": 2.09
+      }
+    ],
+    "feature_importance": [
+      {
+        "feature": "pot.c",
+        "importance": -4.8725
+      },
+      {
+        "feature": ".wi",
+        "importance": 4.6934
+      },
+      {
+        "feature": "app",
+        "importance": 4.6898
+      },
+      {
+        "feature": "film",
+        "importance": -3.9767
+      },
+      {
+        "feature": "usr",
+        "importance": 3.9349
+      },
+      {
+        "feature": ".ca ",
+        "importance": -3.6132
+      },
+      {
+        "feature": " mail",
+        "importance": 3.5778
+      },
+      {
+        "feature": "ot.",
+        "importance": 3.5432
+      },
+      {
+        "feature": ".int",
+        "importance": -3.5402
+      },
+      {
+        "feature": "lum",
+        "importance": -3.5391
+      },
+      {
+        "feature": "geo",
+        "importance": -3.3442
+      },
+      {
+        "feature": "dian",
+        "importance": -3.3234
+      },
+      {
+        "feature": "pal",
+        "importance": -3.2616
+      },
+      {
+        "feature": "mco",
+        "importance": 3.1675
+      },
+      {
+        "feature": "t.s",
+        "importance": 3.1539
+      }
+    ],
+    "seed": 42
+  }
+}

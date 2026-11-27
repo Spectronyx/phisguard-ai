@@ -1,0 +1,26 @@
+flowchart TB
+    subgraph Email[Email analysis]
+        E1[Normalise subject + body]
+        E2[TF-IDF + Logistic Regression → phishing probability]
+        E3[Social-engineering rules → score]
+        E4[Embedded-URL evidence re-scores rules]
+    end
+
+    subgraph URL[URL analysis]
+        U1[Parse URL as text only — never fetched]
+        U2[Hostname char 3–5 gram TF-IDF + numeric features]
+        U3[URL model → malicious probability]
+        U4[Popularity calibration if bare top-ranked domain]
+        U5[Deterministic URL rules → score]
+    end
+
+    subgraph Risk[Risk aggregation]
+        R1[Weighted mean over available modules]
+        R2[+ capped corroboration bonus]
+        R3[Thresholds: 30 / 60 / 80 → safe / suspicious / phishing]
+    end
+
+    E1 --> E2 --> E3 --> E4 --> R1
+    U1 --> U2 --> U3 --> U4 --> U5 --> R1
+    R1 --> R2 --> R3
+    R3 --> Out[0–100 score + classification + explanation]
